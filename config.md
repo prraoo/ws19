@@ -19,3 +19,6 @@ source ~/.vim_runtime/my_configs.vim
 catch
 endtry
 ```
+### Course Links:
+1. https://www.mia.uni-saarland.de/mvc/teaching-ws19.shtml
+2. https://webmail.uni-saarland.de/
