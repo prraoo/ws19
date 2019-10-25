@@ -51,9 +51,26 @@ print(cor(ozone[1:4], method = "pearson" ))
 # negatively correlated with wind.
 # b) The second variable, radiation, postive correlation with temperature and a small negative correlation with wind.
 # c) The third variable, temperature is negatively correlated with wind.
+
 # Can you see them directly from the plot (visually)?
 library("PerformanceAnalytics")
 chart.Correlation(ozone, histogram = FALSE)
 
+# 5---------------------------------------------------------------------------------
+print("Problem 4.5")
+rss <- function(true_value, predicted_value){
+    print("Calculating RSS ...")
+    return(sum((true_value - predicted_value)^2))
+}
+print(rss(testset,testset+1))
+
+# 6---------------------------------------------------------------------------------
+print("Problem 4.6")
+train_data <- ozone[trainset,]
+test_data <- ozone[testset,]
+
+ozone_model <- lm(ozone ~ radiation+temperature+wind, data = train_data, graph = TRUE)
+print(summary(ozone_model))
+pred_data <- predict.lm(ozone_model, test_data)
 
 dev.off()
