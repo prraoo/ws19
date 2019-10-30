@@ -1,6 +1,7 @@
 pdf("P1_Programming_Solutions.pdf") 
 load("ozone.RData")
 cat("\n The objects in the dataset are:", ls(), "\n")
+cat("\n The objects in the ozone are:", ls(ozone), "\n")
 
 print("Structure of the ozone object is:")
 str(ozone)
@@ -13,6 +14,10 @@ print(summary(ozone))
 
 cat("\n", dim(ozone), dim(trainset), dim(testset), "\n")
 #NOTE dim of values is NULL
+
+cat("\n datatype of ozone: ",class(ozone$ozone),"|| datatype of radiation: ", class(ozone$radiation)
+    ,"|| datatype of wind: ", class(ozone$wind), "|| datatype of temperature: ", class(ozone$temperature),
+    "\n")
 
 cat("\n Length: ",length(ozone), length(trainset), length(testset), "\n")
 cat("\n Range: ",range(ozone), range(trainset), range(testset), "\n")
@@ -80,19 +85,19 @@ plot(test_data$ozone, pred_data, main = "Predicted and True Values Scatterplot",
 print("Problem 4.7")
 require("FNN")
 knn_model <- function(train, test, n){
-   knn_pred <- knn.reg(train = train[2:4],test =  test[2:4],y = train[1],k = n)
+   knn_pred <- knn.reg(train = train[,2:4],test =  test[,2:4],y = train[,1],k = n)
    knn_rss = rss(test$ozone, knn_pred$pred)
    return(list(pred=knn_pred$pred, rss=knn_rss))
 }
 
 # Train Data
 i = 1
-train_knn_rss <- c()
-knn_predictions <- knn_model(train_data, train_data, i)
-train_knn_rss <- c(train_knn_rss, knn_predictions$rss)
+#train_knn_rss <- c()
+#knn_predictions <- knn_model(train_data, train_data, i)
+#train_knn_rss <- c(train_knn_rss, knn_predictions$rss)
 
 while(i<30){
-    knn_predictions <- knn_model(train_data, train_data, i+2)
+    knn_predictions <- knn_model(train_data, train_data, i)
     train_knn_rss <- c(train_knn_rss, knn_predictions$rss)
     i <- i+1
 }
@@ -101,12 +106,12 @@ plot(train_knn_rss, col="green", ylim = c(0,70000), main = "Train vs Pred RSS", 
 
 # Test Data
 i = 1
-test_knn_rss <- c()
-knn_predictions <- knn_model(train_data, test_data, i)
-test_knn_rss <- c(test_knn_rss, knn_predictions$rss)
+#test_knn_rss <- c()
+#knn_predictions <- knn_model(train_data, test_data, i)
+#test_knn_rss <- c(test_knn_rss, knn_predictions$rss)
 
 while(i<30){
-    knn_predictions <- knn_model(train_data, test_data, i+2)
+    knn_predictions <- knn_model(train_data, test_data, i)
     test_knn_rss <- c(test_knn_rss, knn_predictions$rss) 
     i <- i+1
 }
