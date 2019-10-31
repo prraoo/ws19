@@ -92,7 +92,7 @@ knn_model <- function(train, test, n){
 
 # Train Data
 i = 1
-#train_knn_rss <- c()
+train_knn_rss <- c()
 #knn_predictions <- knn_model(train_data, train_data, i)
 #train_knn_rss <- c(train_knn_rss, knn_predictions$rss)
 
@@ -102,11 +102,12 @@ while(i<30){
     i <- i+1
 }
 grid(1,1)
-plot(train_knn_rss, col="green", ylim = c(0,70000), main = "Train vs Pred RSS", pch=16, panel.first = grid())
-
+plot(train_knn_rss, col="green", ylim = c(0,70000), main = "kNN Train vs Pred RSS", pch=16, panel.first = grid(), 
+     xlab = "Neighbours", ylab = "RSS Value")
+legend("bottomright", legend = c("Train", "Test"), col = c("green", "blue"), pch = 16)
 # Test Data
 i = 1
-#test_knn_rss <- c()
+test_knn_rss <- c()
 #knn_predictions <- knn_model(train_data, test_data, i)
 #test_knn_rss <- c(test_knn_rss, knn_predictions$rss)
 
@@ -117,8 +118,6 @@ while(i<30){
 }
 points(test_knn_rss, col="blue", pch=16)
 
-# Assumptions in KNN:
-# https://saravananthirumuruganathan.wordpress.com/2010/05/17/a-detailed-introduction-to-k-nearest-neighbor-knn-algorithm/
 # 8---------------------------------------------------------------------------------
 print("Problem 4.8")
 # Chosen nearest neighbour = 6
