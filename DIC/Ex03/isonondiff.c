@@ -572,14 +572,18 @@ two_hy = 2.0 * hy;
 for (i=1; i<=nx; i++)
  for (j=1; j<=ny; j++)
      {
-     /* calculate grad(f) */
+     /* calculate grad(f) */	
+/*
+SUPPLEMENT CODE
+*/	   
+	   df_dx = (1/two_hx)*(f[i+1][j] - f[i-1][j] );
+	   df_dy = (1/two_hy)*(f[i][j+1] - f[i][j+1] );
+	   grad = df_dx + df_dy;
+     /* calculate diffusivity dc = exp(-grad/2*lamda) */
 /*
 SUPPLEMENT CODE
 */
-     /* calculate diffusivity dc */
-/*
-SUPPLEMENT CODE
-*/
+	  dc[i][j] = exp(-1*grad*grad/(2*lambda*lambda));
      }
 
 
