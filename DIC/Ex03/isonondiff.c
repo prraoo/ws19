@@ -580,13 +580,18 @@ SUPPLEMENT CODE
 	   df_dy = (1/two_hy)*(f[i][j+1] - f[i][j-1] );
 	   grad = sqrt(df_dx*df_dx + df_dy*df_dy);
      /* calculate diffusivity */
-	/*1. Perona-Malik: dc = exp(-grad/2*lamda) */
-	/*2. Charbonnier diffusivity*/ 
+	/*
+	1. Perona-Malik 
+	2. Charbonnier diffusivity
+	*/ 
 /*
 SUPPLEMENT CODE
 */
-	  /*dc[i][j] = exp(-1*grad*grad/(2*lambda*lambda));*/
-	  dc[i][j] = 1/(sqrt(1+(grad*grad/(lambda*lambda))));
+	//Perna-Malik   
+	//dc[i][j] = exp(-1*grad*grad/(2*lambda*lambda));
+
+	//Charbonnier 
+	dc[i][j] = 1/(sqrt(1+(grad*grad/(lambda*lambda))));
      }
 
 
