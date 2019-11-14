@@ -683,16 +683,27 @@ for (i=1; i<=nx; i++)
      /*
        SUPPLEMENT CODE
      */
+	PA_trans(dxx[i][j], dxy[i][j], dyy[i][j], &c, &s, &mu1, &mu2);
 
      /* calculate eigenvalues */
      /*
        SUPPLEMENT CODE
      */
+	lam1 = alpha;
+	if(mu1 == mu2)
+	{
+	lam2 = alpha;
+	}
+	else
+	{
+	lam2 = alpha + (1-alpha)*exp((-1*C)/((mu1-mu2)*(mu1-mu2)));
+	}
 
      /* principal axis backtransformation */
      /*
        SUPPLEMENT CODE
      */  
+	PA_backtrans(c, s,lam1,lam2, &dxx[i][j], &dxy[i][j], &dyy[i][j]);
      }
 
 return;
