@@ -67,15 +67,15 @@ dev.off()
 print("-------------------------Problem 4.6-------------------------")
 
 ##Pairwise interaction terms (X1X2) for cylinders, weight, and year
-lm_cw <- lm(mpg~cylinders*weight, data=Auto)
+lm_cw <- lm(mpg~cylinders+weight+cylinders*weight, data=Auto)
 print(lm_cw)
 print(summary(lm_cw))
 
-lm_wy <- lm(mpg~weight*year, data=Auto)
+lm_wy <- lm(mpg~weight+year+weight*year, data=Auto)
 print(lm_wy)
 print(summary(lm_wy))
 
-lm_yc <- lm(mpg~year*cylinders, data=Auto)
+lm_yc <- lm(mpg~year+cylinders+year*cylinders, data=Auto)
 print(lm_yc)
 print(summary(lm_yc))
 
