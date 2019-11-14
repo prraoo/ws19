@@ -1,3 +1,7 @@
+#-------Authors----
+# 1.  Pramod Ramesh Rao - 2581261
+# 2. Yashaswini Mysuru Udaya Kumar - 2581353
+# ------------------
 #loading the package
 require(PerformanceAnalytics)
 require(ISLR)
@@ -88,6 +92,6 @@ lm5 <- lm(mpg~(log(displacement)), data=Auto)
 print(lm5)
 print(summary(lm5))
 
-lm6 <- lm(mpg~(displacement^2), data=Auto)
+lm6 <- lm(mpg~displacement**2, data=Auto)
 print(lm6)
 print(summary(lm6))
