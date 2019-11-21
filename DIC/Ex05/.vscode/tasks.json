@@ -1,0 +1,28 @@
+{
+    "version": "2.0.0",
+    "windows": {
+      "options": {
+        "shell": {
+          "executable": "bash.exe",
+          "args": ["-c"]
+        }
+      }
+    },
+    "tasks": [
+      {
+        "label": "build decorrelation on WSL",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+          "-g",
+          "-o",
+          "/home/s8prraoo/ws19/DIC/Ex05/helloworld.out",
+          "helloworld.cpp"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      }
+    ]
+  }

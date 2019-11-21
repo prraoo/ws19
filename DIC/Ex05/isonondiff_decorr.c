@@ -688,6 +688,13 @@ float mean = 0.0f;
 /*
 SUPPLEMENT CODE
 */
+long i,j;
+for(i=1; i<=nx; i++)
+	for(j=1; j<=ny;j++)
+		{
+			mean = mean + f[i][j];
+		}
+mean = mean/(nx*ny);
 
 return mean;
 }
@@ -710,6 +717,17 @@ float var = 0.0f;
 /*
 SUPPLEMENT CODE
 */
+long i,j;
+float mu = 0.0f;
+
+mu = mean(nx,ny,f);
+
+for(i=1; i<=nx; i++)
+	for(j=1; j<=ny;j++)
+		{
+			var = var + (f[i][j] - mu) * (f[i][j] - mu);
+		}
+var = var/(nx*ny);
 
 return var;
 }
@@ -734,6 +752,20 @@ float cov = 0.0f;
 SUPPLEMENT CODE
 */
 
+long i,j;
+float mu_f = 0.0f;
+float mu_g = 0.0f;
+
+mu_f = mean(nx,ny,f);
+mu_g = mean(nx,ny,g);
+
+for(i=1; i<=nx; i++)
+	for(j=1; j<=ny;j++)
+		{
+		  cov = cov + (f[i][j] - mu_f) * (g[i][j] - mu_g);
+		}
+cov = cov/(nx*ny);
+
 return cov;
 }
 
@@ -756,7 +788,7 @@ float corr = 0.0f;
 /*
 SUPPLEMENT CODE
 */
-
+corr = cov(nx, ny, f, g) / (sqrt(var(nx, ny, f)) * sqrt(var(nx, ny, g)));
 return corr;
 }
 
@@ -792,12 +824,15 @@ for (i=1; i<=nx; i++)
     /*
     SUPPLEMENT CODE
     */
+   rn[i][j] = f[i][j] - u[i][j];
  }
 
 /* get the modulus of correlation coefficient */
 /*
 SUPPLEMENT CODE
 */
+
+new_c = corr(nx, ny, u, rn);
 
 /* stop if modulus of new corr. coeff. is larger or equal to the prev. one */
 stop = (*c > new_c) ? 0 : 1;
