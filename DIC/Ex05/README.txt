@@ -25,8 +25,9 @@ Parameters:
 3.a) 
 The first difference in implementations of ced and ced_fed is in the main() function. In case of
 the ced diffusion is carried every iteration given kmax = stopping_time/ time step. In otherwords, 
-the image is updated by the function cediff() kmax times while incase of ced_fed, there is no updates. ced_fed takes
-stopping_time(T) and cycles (M) and updates the image within the function cediff(). 
+the image is updated by the function cediff() kmax times while incase of ced_fed, there is no
+ updates. ced_fed takes stopping_time(T) and cycles (M) and updates the image within the function
+ cediff(). 
 
 The second difference is in the evolution of diffusion image in the function cediff(). In case of
 ced_fed, there are two control loops. First loop controls the number of cycles the diffusion process
@@ -49,11 +50,19 @@ l=lambda; cov=modulus of the correlation , n=number of iterations
 |50	|0.046	|66	|
 |150|0.046	|65	|
 
-The table above summarises the changes in image quality and diffusion time. For very low lambda, 
-say 0.1, the noise and image features are enhanced together hence a correlation between noise and
-image is high. On the other side, if the lambda is very high, for instance 150, both noise and 
-image are smoothened hence edges are lost as well.
+The table above summarises the changes in image quality and diffusion time. 
 
-Only when the lambda is 1 or 2 the noise filtered while preserving the edges of the image. 
+For very low lambda, say 0.1, the noise and image features are enhanced together hence a correlation 
+between noise and image is high. Since the noise and image are correlated the stopping time at which
+modulus of correlation min is lower. Hence the diffusion ends faster and the image is grainy with
+a lot of salt and pepper noise.
 
+On the other side, if the lambda is very high, for instance 150, both noise and image are smoothened
+hence edges are lost as well. Since all the objects (noise+image) are lost, the resulting image
+has low moduls of correlation. Hence the diffusion time is realtively fast but the difussed image is
+image blurry.
+
+Only when the lambda is 1 or 2 the noise filtered while preserving the sharp edges of the image. 
+This results in very low modulus of correlation and a larger diffusion time. The resulting image 
+is has sharp edges and very less noise compared the original noisy image.
 
