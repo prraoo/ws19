@@ -483,10 +483,9 @@ for (k=0; k<kmax; k++)
 	/*
 		SUPPLEMENT CODE
 	*/
-      
-      tk =  tk1;
-      tk1 = (1 + sqrt(1+4*tk*tk))/2;
-      theta = (tk -1)/tk1;
+      tk=tk1;
+      tk1 = (1 + sqrt(1 + 4*tk*tk))/2;
+      theta = (tk-1)/tk1;
 
 	/* create b^{k} and projected b^{k} */
 	for (i=1; i<=nx; i++)
@@ -495,6 +494,11 @@ for (k=0; k<kmax; k++)
 			/*
 			SUPPLEMENT CODE
 			*/
+            b_oldx[i][j] = b_newx[i][j];
+            b_oldy[i][j] = b_newy[i][j];
+            
+            bp_oldx[i][j] = bp_newx[i][j];
+            bp_oldy[i][j] = bp_newy[i][j];
 		}
 
 	/* compute v = D^T*b^k */
@@ -503,6 +507,7 @@ for (k=0; k<kmax; k++)
 	 SUPPLEMENT CODE
 	 */
 	
+      mult_DT (nx, ny, v, b_oldx, b_oldy);
 
 	/* v = D^T*b^k - u */
 	for (i=1; i<=nx; i++)
@@ -515,13 +520,17 @@ for (k=0; k<kmax; k++)
 	 SUPPLEMENT CODE
 	 */
 
+      mult_D (nx, ny, v, b_newx, b_newy);
+      
 	/* compute the vector to be projected */
 	for (i=1; i<=nx; i++)
 		for (j=1; j<=ny; j++)
 		{
 			/*
 				SUPPLEMENT CODE
-				*/
+			*/
+            bp_newx[i][j]  = b_oldx[i][j] - tau * b_newx[i][j];
+            bp_newy[i][j]  = b_oldy[i][j] - tau * b_newy[i][j];
 		}
 
 	/* get projection b^{k+1} */
@@ -529,6 +538,7 @@ for (k=0; k<kmax; k++)
 	/*
 	 SUPPLEMENT CODE
 	 */
+      proj (alpha, nx, ny, bp_newx, bp_newy);
 
 	/* relaxation step */
 	for (i=1; i<nx+1; i++)
@@ -537,6 +547,9 @@ for (k=0; k<kmax; k++)
 			/*
 			SUPPLEMENT CODE
 			*/
+            
+            b_newx[i][j]  = bp_newx[i][j] + theta*(bp_newx[i][j] - bp_oldx[i][j]);
+            b_newy[i][j]  = bp_newy[i][j] + theta*(bp_newy[i][j] - bp_oldy[i][j]);
 		}
 } /* for k */
 
