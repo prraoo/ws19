@@ -40,6 +40,12 @@ FBS(fbs50), FISTA and kacanov.
 And between FBS and FISTA we can say that FISTA algorithm gives 
 better results in lesser iterations. 
 
+Since L2_Norm(D)^2 is <= 8, this puts a constraint in the step 
+size, and the time step is 1/L2_Norm(D)^2.
+There limit for the step size, that is 0.125 beyond that the 
+algorithm becomes unstable. Whereas the FBS method can have
+step size till 0.25.
+
 
 
 
