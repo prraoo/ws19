@@ -171,6 +171,10 @@ for (i=0; i<=nx+1; i++)
     
 /* SUPPLEMENT CODE */
 
+for (i=0; i<=nx; i++)
+ for (j=0; j<=ny; j++)
+     d1[i][j] = (2 * (v[i+1][j] - v[i][j]))/ (hx * (v[i+1][j] + v[i][j]) );
+
 
 /* ---- compute y component of canonical drift vector field ---- */
 
@@ -178,10 +182,19 @@ for (i=0; i<=nx+1; i++)
     
 /* SUPPLEMENT CODE */
 
+for (i=0; i<=nx; i++)
+ for (j=0; j<=ny; j++)
+     d2[i][j] = (2 * (v[i][j+1] - v[i][j]))/ (hy * (v[i][j+1] + v[i][j]) );
+
 
 /* ---- modification at the shadow boundaries between i=128 and i=129 ---- */
 
 /* SUPPLEMENT CODE */
+for (j=0; j<=ny; j++)
+  {
+  d1[128][j] = d2[128][j] = 0;
+  d1[129][j] = d2[129][j] = 0;
+  }
 
 return;
 
