@@ -659,18 +659,17 @@ ryy  = ht / (2.0 * hy * hy);
 
 /* create reflecting dummy boundaries */
 dummies (u1, nx, ny);
-printf("\nCommented dc terms\n");
 
 for (i=1; i<=nx; i++)
  for (j=1; j<=ny; j++)
-     { 
+     {
      /* SUPPLEMENT CODE */
 
      u[i][j] = (u1[i][j]
-                + rxx * ( (/*(dc[i+1][j] + dc[i][j]) */ (u1[i+1][j] - u1[i][j]) 
-                        +  /*(dc[i-1][j] + dc[i][j]) */ (u1[i-1][j] - u1[i][j])) )
-                + ryy * ( (/*(dc[i][j+1] + dc[i][j]) */ (u1[i+1][j] - u1[i][j])
-                        +  /*(dc[i][j-1] + dc[i][j]) */ (u1[i-1][j] - u1[i][j])))
+                + rxx * ( ((dc[i+1][j] + dc[i][j]) * (u1[i+1][j] - u1[i][j]) 
+                        +  (dc[i-1][j] + dc[i][j]) * (u1[i-1][j] - u1[i][j])) )
+                + ryy * ( ((dc[i][j+1] + dc[i][j]) * (u1[i+1][j] - u1[i][j])
+                        +  (dc[i][j-1] + dc[i][j]) * (u1[i-1][j] - u1[i][j])))
                 - help * fx[i][j] * (fy[i][j] * v1[i][j] + ft[i][j]) ) / (1 + help * fx[i][j]*fx[i][j]);
      }
 
@@ -686,10 +685,10 @@ for (i=1; i<=nx; i++)
      /* SUPPLEMENT CODE */
 
      v[i][j] = (v1[i][j]
-                + rxx * ( (/*(dc[i+1][j] + dc[i][j]) */ (v1[i+1][j] - v1[i][j]) 
-                        +  /*(dc[i-1][j] + dc[i][j]) */ (v1[i-1][j] - v1[i][j])) )
-                + ryy * ( (/*(dc[i][j+1] + dc[i][j]) */ (v1[i+1][j] - v1[i][j])
-                        +  /*(dc[i][j-1] + dc[i][j]) */ (v1[i-1][j] - v1[i][j])) )
+                + rxx * ( ((dc[i+1][j] + dc[i][j]) * (v1[i+1][j] - v1[i][j]) 
+                        +  (dc[i-1][j] + dc[i][j]) * (v1[i-1][j] - v1[i][j])) )
+                + ryy * ( ((dc[i][j+1] + dc[i][j]) * (v1[i+1][j] - v1[i][j])
+                        +  (dc[i][j-1] + dc[i][j]) * (v1[i-1][j] - v1[i][j])) )
                 - help * fy[i][j] * (fx[i][j] * u1[i][j] + ft[i][j]) ) / (1 + help * fy[i][j]*fy[i][j]);
      }
 
